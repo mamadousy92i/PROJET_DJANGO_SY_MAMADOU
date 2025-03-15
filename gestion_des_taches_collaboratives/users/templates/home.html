@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskCollab - Accueil</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+   <!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'home' %}" class="brand">TaskCollab</a>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-btn">
+            <span class="menu-icon"></span>
+        </label>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'projet_list' %}" class="nav-item">
+                    <i class="fas fa-tasks"></i> Mes projets
+                </a>
+                <a href="{% url 'profile' %}" class="nav-item">
+                    <i class="fas fa-user"></i> Profil
+                </a>
+                <form method="post" action="{% url 'logout' %}" class="nav-item logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-item">
+                    <i class="fas fa-sign-in-alt"></i> Connexion
+                </a>
+                <a href="{% url 'register' %}" class="nav-item">
+                    <i class="fas fa-user-plus"></i> Inscription
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+            <span class="close-btn" onclick="this.parentElement.remove()">&times;</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <div class="home-container">
+            {% if user.is_authenticated %}
+
+                {% if not user.is_active %}
+                    <div class="alert alert-warning">
+                        Votre compte est en attente de validation.
+                    </div>
+                {% endif %}
+            {% else %}
+
+            {% endif %}
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Collaborez efficacement</h2>
+                <p>Gérez vos projets d'équipe simplement et efficacement avec TaskCollab</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'projet_list' %}" class="cta-button">Accéder à mes projets</a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="cta-button">Commencer gratuitement</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-users-cog feature-icon"></i>
+                    <h3>Gestion d'équipe</h3>
+                    <p>Attribuez des tâches et suivez les progrès de chaque membre de l'équipe</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-project-diagram feature-icon"></i>
+                    <h3>Projets organisés</h3>
+                    <p>Créez des projets structurés avec des délais et priorités configurables</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-comments feature-icon"></i>
+                    <h3>Communication intégrée</h3>
+                    <p>Discutez en temps réel avec votre équipe sur chaque tâche et projet</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 TaskCollab - Tous droits réservés</p>
+    </footer>
+
+    <!-- Styles -->
+    <style>
+        /* Messages stylisés */
+        .messages-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .message {
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .message.info {
+            background: #e2f0fd;
+            color: #004085;
+            border-left: 4px solid #007bff;
+        }
+
+        .close-btn {
+            margin-left: auto;
+            cursor: pointer;
+            padding: 0 5px;
+            font-size: 1.2em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #6366f1;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            color: #6366f1;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        /* ======== FOOTER ========= */
+.footer {
+    width: 100%;
+    background: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1em;
+    font-weight: 400;
+
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+.footer p:hover {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Version responsive */
+@media (max-width: 768px) {
+    .footer {
+        font-size: 0.9em;
+        padding: 10px 0;
+    }
+}
+
+    </style>
+
+</body>
+</html>

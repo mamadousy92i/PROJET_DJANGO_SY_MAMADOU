@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <form method="POST">
+        <h2>Se connecter</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Se connecter</button>
+    </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+<!-- Styles -->
+
+
+
+{% endblock %}

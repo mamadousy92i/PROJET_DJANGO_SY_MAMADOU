@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskCollab - Gestion de tâches collaboratives</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+</head>
+
+<body>
+   <!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'home' %}" class="brand">TaskCollab</a>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-btn">
+            <span class="menu-icon"></span>
+        </label>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'projet_list' %}" class="nav-item">
+                    <i class="fas fa-tasks"></i> Mes projets
+                </a>
+                <a href="{% url 'profile' %}" class="nav-item">
+                    <i class="fas fa-user"></i> Profil
+                </a>
+                <form method="post" action="{% url 'logout' %}" class="nav-item logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-item">
+                    <i class="fas fa-sign-in-alt"></i> Connexion
+                </a>
+                <a href="{% url 'register' %}" class="nav-item">
+                    <i class="fas fa-user-plus"></i> Inscription
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+
+
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+            <span class="close-btn" onclick="this.parentElement.remove()">&times;</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer optionnel -->
+    <footer class="footer">
+        <p>&copy; 2024 TaskCollab - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

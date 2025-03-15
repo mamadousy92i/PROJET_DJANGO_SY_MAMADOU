@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'projects/css/projet_create.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<h2>Créer un Projet</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Champ du nom du projet -->
+    <div class="form-group">
+        <label for="id_nom">Nom du Projet :</label>
+        {{ form.nom }}
+    </div>
+
+    <!-- Champ de description -->
+    <div class="form-group">
+        <label for="id_description">Description :</label>
+        {{ form.description }}
+    </div>
+
+    <!-- Champ de la date de fin -->
+    <div class="form-group">
+        <label for="id_date_fin">Date de Fin :</label>
+        {{ form.date_fin }}
+    </div>
+
+    <!-- Sélection de l'état du projet -->
+    <div class="form-group">
+        <label for="id_etat">État :</label>
+        {{ form.etat }}
+    </div>
+
+    <!-- Sélection des membres avec checkboxes -->
+    <div class="form-group">
+        <label>Membres :</label>
+        <div class="checkbox-group">
+            {{ form.membres }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Créer</button>
+    <a href="{% url 'projet_list' %}" class="btn btn-secondary">Retour</a>
+</form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function(event) {
+          // Désactiver le bouton après la première soumission
+          const submitButton = document.querySelector(".btn-primary");
+          submitButton.disabled = true;
+          submitButton.innerText = "Création en cours...";
+      });
+  });
+</script>
+
+{% endblock %}

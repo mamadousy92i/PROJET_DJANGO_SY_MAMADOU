@@ -1,0 +1,127 @@
+/* static/users/css/auth.css */
+
+/* Container principal */
+.auth-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Animation d'entrée */
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Titre */
+.auth-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2.3em;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Groupes de formulaire */
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: #666;
+    font-size: 0.95em;
+}
+
+/* Champs de saisie */
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #888;
+    box-shadow: 0 0 0 3px rgba(136,136,136,0.1);
+}
+
+/* Bouton d'inscription */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #444;
+    transform: scale(1.02);
+}
+
+/* Upload de fichier */
+.file-upload {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #f8f9fa;
+    color: #666;
+    border-radius: 6px;
+    border: 1px dashed #ddd;
+    transition: all 0.3s ease;
+}
+
+.upload-button:hover {
+    border-color: #888;
+    background: #f1f1f1;
+}
+
+/* Messages d'erreur */
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.9em;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(255,107,107,0.05);
+    border: 1px solid rgba(255,107,107,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .auth-title {
+        font-size: 2em;
+    }
+}

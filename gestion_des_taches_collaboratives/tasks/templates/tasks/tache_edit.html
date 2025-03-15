@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'projects/css/tache_form.css' %}">
+</head>
+
+<div class="container">
+    <h2>Modifier la Tâche</h2>
+
+    {% if form.instance.statut == "Terminé" %}
+        <p class="alert alert-warning">Cette tâche est terminée et ne peut plus être modifiée.</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.titre.id_for_label }}">Titre :</label>
+            {{ form.titre }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description :</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.date_limite.id_for_label }}">Date limite :</label>
+            {{ form.date_limite }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.statut.id_for_label }}">Statut :</label>
+            {{ form.statut }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" {% if form.instance.statut == "Terminé" %}disabled{% endif %}>
+            Mettre à jour
+        </button>
+        <a href="{% url 'projet_detail' form.instance.projet.id %}" class="btn btn-secondary">Retour</a>
+    </form>
+</div>
+
+
+{% endblock %}

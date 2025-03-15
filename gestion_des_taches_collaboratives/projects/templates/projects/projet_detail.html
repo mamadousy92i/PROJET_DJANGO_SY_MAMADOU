@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'projects/css/projet_detail.css' %}">
+
+</head>
+<div class="project-detail">
+    <h2>{{ projet.nom }}</h2>
+
+    <div class="project-info">
+        <p><strong>Description :</strong> {{ projet.description }}</p>
+        <p><strong>Date de fin :</strong> {{ projet.date_fin }}</p>
+        <p><strong>État :</strong> {{ projet.get_etat_display }}</p>
+        <p><strong>Propriétaire :</strong> {{ projet.proprietaire }}</p>
+    </div>
+
+    <h3>Membres du projet :</h3>
+<ul class="members-list">
+    {% for membre in projet.membres.all %}
+        <li>
+            {{ membre.username }}
+
+            {% if user == projet.proprietaire and membre != projet.proprietaire %}
+                <a href="{% url 'retirer_membre' projet.id membre.id %}" class="btn btn-danger btn-sm">
+                    Retirer
+                </a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>Aucun membre.</li>
+    {% endfor %}
+</ul>
+
+
+   <h3>Tâches associées :</h3>
+<ul class="tasks-list">
+    {% for tache in projet.taches.all %}
+        <li>
+            <strong>{{ tache.titre }}</strong>
+            <span class="task-status">{{ tache.get_statut_display }}</span>
+
+            {% if user == tache.assigne_a %}
+                <a href="{% url 'tache_update' tache.id %}" class="btn btn-warning">Modifier</a>
+            {% endif %}
+
+            {% if user == projet.proprietaire %}
+                <a href="{% url 'tache_delete' tache.id %}" class="btn btn-danger">Supprimer</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>Aucune tâche associée.</li>
+    {% endfor %}
+</ul>
+
+
+
+    <div class="action-buttons">
+        <a href="{% url 'tache_create' projet.id %}" class="btn btn-success">Ajouter une tâche</a>
+        {% if projet.proprietaire == user %}
+            <a href="{% url 'projet_update' projet.id %}" class="btn btn-warning">Modifier</a>
+            <a href="{% url 'projet_delete' projet.id %}" class="btn btn-danger">Supprimer</a>
+        {% endif %}
+        <a href="{% url 'projet_list' %}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</div>
+{% endblock %}

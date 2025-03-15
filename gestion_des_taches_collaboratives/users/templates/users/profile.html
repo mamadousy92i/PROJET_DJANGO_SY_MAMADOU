@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="profile-title">Mon Profil</h1>
+
+    <form class="profile-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Section Avatar -->
+        <div class="avatar-section">
+            <div class="avatar-preview">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="Avatar actuel">
+                {% else %}
+                    <div class="avatar-placeholder">👤</div>
+                {% endif %}
+            </div>
+
+            <label class="file-upload">
+                <input type="file" name="avatar" id="id_avatar" style="display:none;" accept="image/*">
+                <span class="upload-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"/>
+                        <path d="m8 11-3 4h11l-4-6-3 4z"/>
+                        <path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>
+                    </svg>
+                    Changer de photo
+                </span>
+            </label>
+        </div>
+
+        <!-- Champs du formulaire -->
+        <div class="form-group">
+            <label for="{{ form.nom.id_for_label }}">Nom</label>
+            {{ form.nom }}
+            {% if form.nom.errors %}
+                <div class="error-message">{{ form.nom.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.prenom.id_for_label }}">Prénom</label>
+            {{ form.prenom }}
+            {% if form.prenom.errors %}
+                <div class="error-message">{{ form.prenom.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="error-message">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <span>Mettre à jour</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"/>
+            </svg>
+        </button>
+    </form>
+</div>
+
+<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+
+<script>
+// Script de prévisualisation de l'avatar
+document.getElementById("id_avatar").onchange = function(event) {
+    const [file] = event.target.files;
+    if (file) {
+        const preview = document.querySelector('.avatar-preview img') ||
+                      document.querySelector('.avatar-placeholder');
+        if (preview) {
+            if (preview.tagName === 'IMG') {
+                preview.src = URL.createObjectURL(file);
+            } else {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                document.querySelector('.avatar-preview').innerHTML = '';
+                document.querySelector('.avatar-preview').appendChild(img);
+            }
+        }
+    }
+};
+</script>
+{% endblock %}

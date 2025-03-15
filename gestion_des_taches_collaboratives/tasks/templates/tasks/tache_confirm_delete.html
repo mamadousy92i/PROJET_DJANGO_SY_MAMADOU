@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Supprimer la tâche</h2>
+    <p>Êtes-vous sûr de vouloir supprimer la tâche <strong>{{ object.titre }}</strong> ?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+        <a href="{% url 'projet_detail' object.projet.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

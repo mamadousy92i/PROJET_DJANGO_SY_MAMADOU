@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/projet_list.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="container">
+    <h2>Liste des Projets</h2>
+
+    <a href="{% url 'projet_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Créer un projet
+    </a>
+
+    <!-- Mes Projets -->
+    <h3><i class="fas fa-folder-open"></i> Mes Projets</h3>
+    <ul class="projet-list">
+        {% for projet in projets %}
+            {% if projet.proprietaire == user %}
+                <li class="projet-item" data-proprietaire="true">
+                    <a href="{% url 'projet_detail' projet.id %}">
+                        <i class="fas fa-project-diagram"></i> {{ projet.nom }}
+                    </a>
+                    <span class="etat" data-etat="{{ projet.get_etat_display }}">
+                        {{ projet.get_etat_display }}
+                    </span>
+                    <div class="actions">
+                        <a href="{% url 'projet_update' projet.id %}" class="btn btn-edit">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        <a href="{% url 'projet_delete' projet.id %}" class="btn btn-delete">
+                            <i class="fas fa-trash"></i> Supprimer
+                        </a>
+                    </div>
+                </li>
+            {% endif %}
+        {% empty %}
+            <li class="empty"><i class="fas fa-inbox"></i> Aucun projet créé.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Projets membres -->
+    <h3><i class="fas fa-users"></i> Projets participants</h3>
+    <ul class="projet-list">
+        {% for projet in projets %}
+            {% if projet.proprietaire != user and user in projet.membres.all %}
+                <li class="projet-item">
+                    <a href="{% url 'projet_detail' projet.id %}">
+                        <i class="fas fa-project-diagram"></i> {{ projet.nom }}
+                    </a>
+                    <span class="etat" data-etat="{{ projet.get_etat_display }}">
+                        {{ projet.get_etat_display }}
+                    </span>
+                </li>
+            {% endif %}
+        {% empty %}
+            <li class="empty"><i class="fas fa-inbox"></i> Aucun projet en cours.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

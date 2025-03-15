@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'projects/css/tache_form.css' %}">
+</head>
+
+<div class="container">
+    <h2>Créer une Tâche</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.titre.id_for_label }}">Titre :</label>
+            {{ form.titre }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description :</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.date_limite.id_for_label }}">Date limite :</label>
+            {{ form.date_limite }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.statut.id_for_label }}">Statut :</label>
+            {{ form.statut }}
+        </div>
+        <div class="form-group">
+    <label for="{{ form.assigne_a.id_for_label }}">Assigner à :</label>
+    {{ form.assigne_a }}
+</div>
+
+
+
+        <button type="submit" class="btn btn-primary">Créer</button>
+         <a href="{% url 'projet_list' %}" class="btn btn-secondary">Retour à la liste</a>
+    </form>
+
+
+</div>
+
+{% endblock %}

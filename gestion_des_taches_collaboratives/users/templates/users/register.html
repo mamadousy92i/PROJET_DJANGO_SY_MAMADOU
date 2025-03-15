@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <h2 class="auth-title">Inscription</h2>
+
+    <form class="auth-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Nom d'utilisateur -->
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="error-message">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Nom -->
+        <div class="form-group">
+            <label for="{{ form.nom.id_for_label }}">Nom</label>
+            {{ form.nom }}
+            {% if form.nom.errors %}
+                <div class="error-message">{{ form.nom.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Prénom -->
+        <div class="form-group">
+            <label for="{{ form.prenom.id_for_label }}">Prénom</label>
+            {{ form.prenom }}
+            {% if form.prenom.errors %}
+                <div class="error-message">{{ form.prenom.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Rôle -->
+        <div class="form-group">
+            <label for="{{ form.role.id_for_label }}">Rôle</label>
+            {{ form.role }}
+            {% if form.role.errors %}
+                <div class="error-message">{{ form.role.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Mot de passe</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <div class="error-message">{{ form.password1.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Confirmation mot de passe -->
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirmation du mot de passe</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <div class="error-message">{{ form.password2.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Avatar -->
+        <div class="form-group">
+            <label for="{{ form.avatar.id_for_label }}">Avatar</label>
+            <div class="file-upload">
+                <input type="file" name="avatar" id="id_avatar" style="display:none;" accept="image/*">
+                <label for="id_avatar" class="upload-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"/>
+                        <path d="m8 11-3 4h11l-4-6-3 4z"/>
+                        <path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>
+                    </svg>
+                    <span class="file-name">Choisir un fichier</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="submit-btn">
+            <span>S'inscrire</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 14.414-4.707-4.707 1.414-1.414L11 13.586l5.293-5.293 1.414 1.414L11 16.414z"/>
+            </svg>
+        </button>
+    </form>
+</div>
+
+<!-- Styles CSS -->
+<link rel="stylesheet" href="{% static 'users/css/register.css' %}">
+
+<!-- Scripts JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de l'affichage du message selon le rôle
+    const roleSelect = document.getElementById('id_role');
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-info';
+    alertDiv.innerHTML = "Votre compte nécessitera une validation par un administrateur avant de pouvoir être utilisé.";
+    alertDiv.style.display = 'none';
+
+    roleSelect.parentElement.insertAdjacentElement('afterend', alertDiv);
+
+    roleSelect.addEventListener('change', function() {
+        alertDiv.style.display = ['admin', 'enseignant'].includes(this.value) ? 'block' : 'none';
+    });
+
+    // Gestion de l'affichage du nom de fichier
+    document.getElementById('id_avatar').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'Choisir un fichier';
+        document.querySelector('.file-name').textContent = fileName;
+    });
+});
+</script>
+
+
+{% endblock %}

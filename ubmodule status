@@ -1,0 +1,108 @@
+[33mcommit 52046160c257528447b98684c46a4a3154dd8b86[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: ac6291f b57228f
+Author: mamadousy <92mamadousy@gmail.com>
+Date:   Sat Mar 15 14:38:37 2025 +0000
+
+    Merge branch 'main' of https://github.com/mamadousy92i/PROJET_DJANGO_SY_MAMADOU
+
+[33mcommit ac6291f10d1939eb8c350d174ed4b07e28d4880e[m
+Author: mamadousy <92mamadousy@gmail.com>
+Date:   Sat Mar 15 14:38:06 2025 +0000
+
+    'update'
+
+ project/.gitignore         |   24 [31m-[m
+ project/eslint.config.js   |   28 [31m-[m
+ project/index.html         |   13 [31m-[m
+ project/package-lock.json  | 4051 [31m--------------------------------------------[m
+ project/package.json       |   33 [31m-[m
+ project/postcss.config.js  |    6 [31m-[m
+ project/src/App.tsx        |  104 [31m--[m
+ project/src/index.css      |    3 [31m-[m
+ project/src/main.tsx       |   10 [31m-[m
+ project/src/vite-env.d.ts  |    1 [31m-[m
+ project/tailwind.config.js |    8 [31m-[m
+ project/tsconfig.app.json  |   24 [31m-[m
+ project/tsconfig.json      |    7 [31m-[m
+ project/tsconfig.node.json |   22 [31m-[m
+ project/vite.config.ts     |   10 [31m-[m
+ 15 files changed, 4344 deletions(-)
+
+[33mcommit b57228f57ccb8127f679924a581e2af892fa0ef4[m
+Author: mamadousy <128310092+mamadousy92i@users.noreply.github.com>
+Date:   Sat Mar 15 14:25:21 2025 +0000
+
+    Update requirements.txt
+
+ requirements.txt | 42 [32m++++++++++++++++++++++++++++++++++++++++[m[31m--[m
+ 1 file changed, 40 insertions(+), 2 deletions(-)
+
+[33mcommit bc9ca98d3409d0d2f1be8c3255541a12693571eb[m
+Author: mamadousy <92mamadousy@gmail.com>
+Date:   Sat Mar 15 13:44:58 2025 +0000
+
+    Ajout du projet complet
+
+ .idea/.gitignore                                   |    3 [32m+[m
+ .idea/inspectionProfiles/Project_Default.xml       |   12 [32m+[m
+ .idea/inspectionProfiles/profiles_settings.xml     |    6 [32m+[m
+ .idea/misc.xml                                     |    7 [32m+[m
+ .idea/modules.xml                                  |    8 [32m+[m
+ .idea/mon_PROJET_DJANGO.iml                        |   17 [32m+[m
+ Gestion_des_taches_collaboratives                  |    1 [32m+[m
+ gestion-taches-frontend/.gitignore                 |   24 [32m+[m
+ gestion-taches-frontend/eslint.config.js           |   28 [32m+[m
+ gestion-taches-frontend/index.html                 |   13 [32m+[m
+ gestion-taches-frontend/package-lock.json          | 5099 [32m++++++++++++++++++++[m
+ gestion-taches-frontend/package.json               |   42 [32m+[m
+ gestion-taches-frontend/postcss.config.js          |    6 [32m+[m
+ gestion-taches-frontend/public/index.html          |   12 [32m+[m
+ gestion-taches-frontend/public/vite.svg            |    1 [32m+[m
+ gestion-taches-frontend/src/App.tsx                |   46 [32m+[m
+ gestion-taches-frontend/src/api.ts                 |    8 [32m+[m
+ gestion-taches-frontend/src/axiosConfig.ts         |   89 [32m+[m
+ .../src/components/CompletionRate.tsx              |   26 [32m+[m
+ .../src/components/PrivateRoute.tsx                |    9 [32m+[m
+ .../src/components/StatsBadge.tsx                  |   37 [32m+[m
+ .../src/components/StatsCard.tsx                   |   60 [32m+[m
+ .../src/etatConnexion/AuthContext.tsx              |   69 [32m+[m
+ gestion-taches-frontend/src/hooks/useAuth.tsx      |   12 [32m+[m
+ gestion-taches-frontend/src/index.css              |    3 [32m+[m
+ gestion-taches-frontend/src/main.tsx               |   10 [32m+[m
+ .../src/pagePrincipal/Calendrier.tsx               |  571 [32m+++[m
+ .../src/pagePrincipal/HomePage.tsx                 |  407 [32m++[m
+ .../src/pagePrincipal/Layout.tsx                   |   15 [32m+[m
+ .../src/pagePrincipal/Navbar.tsx                   |  216 [32m+[m
+ .../src/pagePrincipal/ProfilePage.tsx              |  545 [32m+++[m
+ .../src/pagePrincipal/Statistiques.tsx             |  544 [32m+++[m
+ .../src/pagePrincipal/login.tsx                    |  195 [32m+[m
+ .../src/pagePrincipal/register.tsx                 |  502 [32m++[m
+ .../src/pagesProjets/Dashboard.tsx                 |  527 [32m++[m
+ .../src/pagesProjets/ProjetCard.tsx                |  158 [32m+[m
+ .../src/pagesProjets/ProjetDetails.tsx             |  799 [32m+++[m
+ .../src/pagesProjets/ProjetForm.tsx                |  331 [32m++[m
+ .../src/pagesProjets/ProjetsList.tsx               |  594 [32m+++[m
+ gestion-taches-frontend/src/types/index.ts         |   11 [32m+[m
+ gestion-taches-frontend/src/vite-env.d.ts          |    1 [32m+[m
+ gestion-taches-frontend/tailwind.config.js         |    8 [32m+[m
+ gestion-taches-frontend/tsconfig.app.json          |   24 [32m+[m
+ gestion-taches-frontend/tsconfig.json              |    7 [32m+[m
+ gestion-taches-frontend/tsconfig.node.json         |   22 [32m+[m
+ gestion-taches-frontend/vite.config.ts             |   10 [32m+[m
+ project/.gitignore                                 |   24 [32m+[m
+ project/eslint.config.js                           |   28 [32m+[m
+ project/index.html                                 |   13 [32m+[m
+ project/package-lock.json                          | 4051 [32m++++++++++++++++[m
+ project/package.json                               |   33 [32m+[m
+ project/postcss.config.js                          |    6 [32m+[m
+ project/src/App.tsx                                |  104 [32m+[m
+ project/src/index.css                              |    3 [32m+[m
+ project/src/main.tsx                               |   10 [32m+[m
+ project/src/vite-env.d.ts                          |    1 [32m+[m
+ project/tailwind.config.js                         |    8 [32m+[m
+ project/tsconfig.app.json                          |   24 [32m+[m
+ project/tsconfig.json                              |    7 [32m+[m
+ project/tsconfig.node.json                         |   22 [32m+[m
+ project/vite.config.ts                             |   10 [32m+[m
+ requirements.txt                                   |    8 [32m+[m
+ 62 files changed, 15487 insertions(+)
