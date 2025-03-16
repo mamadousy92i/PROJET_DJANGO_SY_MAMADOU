@@ -1,8 +1,15 @@
 import axios from "axios";
 
-// Configuration Axios
+// Configuration Axios avec URLs conditionnelles
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? "https://lucifer92i.pythonanywhere.com/api"  // URL de production
+  : "http://127.0.0.1:8000/api";                 // URL de développement
+
+console.log("Environment:", process.env.NODE_ENV);
+console.log("API Base URL:", baseURL);
+
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api", // lien vers mon Backend Django
+    baseURL: baseURL,
     headers: { "Content-Type": "application/json" },
 });
 
@@ -26,8 +33,6 @@ export const getUserId = () => {
     return null;
 };
 
-
-
 // Intercepteur pour ajouter le token dans les requêtes
 api.interceptors.request.use(
     (config) => {
@@ -46,11 +51,9 @@ api.interceptors.request.use(
     }
 );
 
-import { User } from './types';
-
-export const getStatistiques = async (): Promise<User[]> => {
-  const response = await api.get('/statistiques/');
-  return response.data;
+export const getStatistiques = async () => {
+    const response = await api.get('/statistiques/');
+    return response.data;
 };
 
 // Intercepteur pour gérer le rafraîchissement du token
@@ -63,18 +66,28 @@ api.interceptors.response.use(
                 const refresh = localStorage.getItem("refresh");
                 if (!refresh) throw new Error("Aucun refresh token trouvé");
                 
-                const response = await axios.post("http://127.0.0.1:8000/api/auth/refresh/", {
+                // URL de rafraîchissement conditionnelle
+                const refreshURL = process.env.NODE_ENV === 'production'
+                    ? "https://lucifer92i.pythonanywhere.com/api/auth/refresh/"
+                    : "http://127.0.0.1:8000/api/auth/refresh/";
+                
+                // Utiliser axios.create pour une instance unique sans baseURL pour cette requête spécifique
+                const refreshResponse = await axios.create({
+                    headers: { "Content-Type": "application/json" }
+                }).post(refreshURL, {
                     refresh,
                 });
                 
                 // Sauvegarde le nouveau token
-                localStorage.setItem("token", response.data.access);
-                error.config.headers.Authorization = `Bearer ${response.data.access}`;
+                localStorage.setItem("token", refreshResponse.data.access);
+                error.config.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
                 
-                // Relance la requête avec le nouveau token
+                // Relance la requête avec le nouveau token en utilisant l'instance API
+                // Mais comme error.config contient déjà l'URL complète, on utilise axios directement
+                // avec la configuration mise à jour
                 return axios(error.config);
-            } catch {
-                console.log("🚨 Impossible de rafraîchir le token, déconnexion...");
+            } catch (refreshError) {
+                console.log("🚨 Impossible de rafraîchir le token, déconnexion...", refreshError);
                 localStorage.removeItem("token");
                 localStorage.removeItem("refresh");
                 window.location.href = "/login";
