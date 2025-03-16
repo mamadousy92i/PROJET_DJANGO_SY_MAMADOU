@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api, { getUserRole, getUserId } from "../axiosConfig"; // Importez getUserId
+import api, { getUserRole, getUserId } from "../axiosConfig"; 
 import { Calendar, FileText, UserPlus, Clock, ArrowLeft, Save } from "lucide-react";
 
 interface User {
@@ -92,7 +92,7 @@ const ProjetForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        const currentUserId = getUserId(); // Récupérer l'ID de l'utilisateur connecté
+        const currentUserId = getUserId(); // n'oublie pas demain ga verifier fonction getUserId bi dans le fichier axiosConfig.ts
         let dataToSend = { ...formData };
 
         // Si c'est une création (pas d'id), ajouter l'utilisateur connecté aux membres

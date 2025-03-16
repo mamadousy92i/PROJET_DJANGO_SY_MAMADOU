@@ -82,7 +82,7 @@ class ProfileView(generics.RetrieveUpdateAPIView):
         return super().put(request, *args, **kwargs)
 
 class UserListView(generics.ListAPIView):
-    """Liste des utilisateurs (nécessite une authentification)"""
+    # Liste des utilisateurs (nécessite une authentification)
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -92,13 +92,12 @@ class UserListView(generics.ListAPIView):
         return super().get(request, *args, **kwargs)
 
 class UserDetailView(generics.RetrieveUpdateAPIView):
-    """Récupérer ou modifier un utilisateur spécifique (seulement soi-même)"""
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        """Un utilisateur ne peut voir que son propre profil"""
+    #Un utilisateur ne peut voir que son propre profil
         return CustomUser.objects.filter(id=self.request.user.id)
 
     @user_detail_swagger

@@ -16,7 +16,6 @@ interface ProjetCardProps {
 }
 
 const ProjetCard = ({ projet, onDelete }: ProjetCardProps) => {
-    // Traduction des états pour l'affichage
     const getEtatLabel = (etat: string) => {
         switch(etat) {
             case "EN_ATTENTE": return "En attente";
@@ -36,7 +35,6 @@ const ProjetCard = ({ projet, onDelete }: ProjetCardProps) => {
         }
     };
 
-    // Formater la date pour l'affichage
     const formatDate = (dateString?: string) => {
         if (!dateString) return "Non définie";
         

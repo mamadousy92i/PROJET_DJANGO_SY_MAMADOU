@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Configuration Axios
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api", // Backend Django
+    baseURL: "http://127.0.0.1:8000/api", // lien vers mon Backend Django
     headers: { "Content-Type": "application/json" },
 });
 
@@ -21,7 +21,7 @@ export const getUserId = () => {
     const token = localStorage.getItem("token");
     if (token) {
         const payload = JSON.parse(atob(token.split(".")[1]));
-        return payload.user_id; // Vérifie que `user_id` est bien inclus dans le token
+        return payload.user_id; 
     }
     return null;
 };
@@ -36,7 +36,6 @@ api.interceptors.request.use(
         console.log("Token utilisé:", token ? `${token.substring(0, 15)}...` : "Aucun");
         
         if (token) {
-            // IMPORTANT: Assurez-vous que ce format correspond à ce que votre backend attend
             config.headers.Authorization = `Bearer ${token}`;
             console.log("En-tête Authorization défini:", config.headers.Authorization);
         }
@@ -47,7 +46,6 @@ api.interceptors.request.use(
     }
 );
 
-// Ajoutez cette fonction à votre fichier existant
 import { User } from './types';
 
 export const getStatistiques = async (): Promise<User[]> => {

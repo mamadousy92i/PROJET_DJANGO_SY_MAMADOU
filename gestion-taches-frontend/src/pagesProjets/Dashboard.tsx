@@ -46,7 +46,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
-    // États pour les données dynamiques
     const [stats, setStats] = useState({
         totalProjects: 0,
         totalTasks: 0,
@@ -73,8 +72,6 @@ const Dashboard = () => {
         badge: 'En progrès'
     });
 
-    // Récupérer les statistiques et projets
-    // Récupérer les statistiques et projets
 useEffect(() => {
     const fetchData = async () => {
         setLoading(true);
@@ -83,7 +80,6 @@ useEffect(() => {
             const projectsResponse = await api.get('/projets/');
             const projects: Projet[] = projectsResponse.data;
 
-            // Récupérer toutes les tâches (pour les projets récents)
             const tasksResponse = await api.get('/taches/');
             const allTasks: Tache[] = tasksResponse.data;
 
@@ -95,15 +91,12 @@ useEffect(() => {
                 );
                 
                 if (userStat) {
-                    // Définir la performance utilisateur depuis l'API
                     setUserPerformance({
                         taux_completion: userStat.taux_completion,
                         prime: userStat.prime,
                         badge: userStat.badge
                     });
                     
-                    // Utiliser ces mêmes données pour les statistiques générales
-                    // pour assurer la cohérence
                     setStats(prevStats => ({
                         ...prevStats,
                         totalTasks: userStat.taches_totales,
@@ -116,7 +109,7 @@ useEffect(() => {
             } catch (error) {
                 console.error("Erreur lors de la récupération des statistiques :", error);
                 
-                // En cas d'échec de l'API, on utilise un calcul de secours
+                // a c'est le  un calcul de secours si l'api ne marche pas 
                 // Mais seulement pour les tâches de l'utilisateur
                 
                 // Filtrer pour n'obtenir que les tâches assignées à l'utilisateur actuel

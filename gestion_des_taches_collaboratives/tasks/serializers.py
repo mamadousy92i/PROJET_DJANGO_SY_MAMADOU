@@ -9,13 +9,13 @@ from users.models import CustomUser
 from users.serializers import UserSerializer
 
 class TacheSerializer(serializers.ModelSerializer):
-    # ✅ Utilisé pour l'écriture (création/modification)
+    # Utilisé pour l'écriture (création/modification)
     assigne_a = serializers.PrimaryKeyRelatedField(
         queryset=CustomUser.objects.all(),
         many=True
     )
 
-    # ✅ Utilisé pour la lecture (retourne les détails complets)
+    #  Utilisé pour la lecture (retourne les détails complets)
     assigne_a_detail = UserSerializer(source='assigne_a', many=True, read_only=True)
 
     class Meta:

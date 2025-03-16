@@ -3,7 +3,6 @@ import api, { getUserId } from "../axiosConfig";
 import { Link } from "react-router-dom";
 import { Loader, Plus, Search, Filter, Tag, Clock, Grid, List as ListIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Définition du type du projet
 interface Projet {
     id: number;
     nom: string;
@@ -34,7 +33,6 @@ interface ProjetApi {
     membres_details?: { id: number; username: string; role?: string; avatar?: string }[];
 }
 
-// Types de vue disponibles
 type ViewMode = "grid" | "list";
 
 const ProjetsList = () => {
@@ -69,7 +67,6 @@ const ProjetsList = () => {
                 id: projet.proprietaire.id,
                 username: projet.proprietaire.username
             },
-            // Utiliser membres_details s'il existe, sinon faire un mapping simple des IDs
             membres: projet.membres_details || projet.membres?.map((id: number) => ({
                 id,
                 username: `Utilisateur ${id}`
@@ -94,7 +91,7 @@ const ProjetsList = () => {
             });
     }, []);
 
-    // Séparer les projets en "mes projets" et "projets participants"
+    // ici je separe les projets en "mes projets" et "projets participants"
     useEffect(() => {
         if (userId && projets.length > 0) {
             // Projets dont je suis propriétaire
@@ -147,7 +144,6 @@ const ProjetsList = () => {
     // Nombre total de pages pour les projets filtrés
     const totalPages = (projets: Projet[]) => Math.ceil(projets.length / itemsPerPage);
 
-    // Traduction des états pour l'affichage
     const getEtatLabel = (etat: string) => {
         switch(etat) {
             case "EN_ATTENTE": return "En attente";
@@ -167,7 +163,6 @@ const ProjetsList = () => {
         }
     };
 
-    // Préparation des données pour l'affichage avec pagination
     const currentMesProjets = paginate(mesProjetsFiltered, currentPage, itemsPerPage);
     const currentProjetsParticipant = paginate(projetsParticipantFiltered, currentPage, itemsPerPage);
     const totalPagesMesProjets = totalPages(mesProjetsFiltered);
@@ -180,21 +175,16 @@ const ProjetsList = () => {
         // Fonction pour limiter les boutons de pagination affichés
         const getPaginationButtons = () => {
             let buttons = [];
-            const maxButtons = 5; // Nombre maximum de boutons à afficher
+            const maxButtons = 5; 
             
             if (totalPages <= maxButtons) {
-                // Afficher tous les boutons si le nombre total de pages est inférieur ou égal au maximum
                 buttons = Array.from({ length: totalPages }, (_, i) => i + 1);
             } else {
-                // Afficher un sous-ensemble de boutons avec ellipsis
                 if (currentPage <= 3) {
-                    // Début de la pagination
                     buttons = [1, 2, 3, 4, '...', totalPages];
                 } else if (currentPage >= totalPages - 2) {
-                    // Fin de la pagination
                     buttons = [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
                 } else {
-                    // Milieu de la pagination
                     buttons = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
                 }
             }
@@ -251,15 +241,14 @@ const ProjetsList = () => {
         );
     };
 
-    // Rendre la liste des projets en mode grille
+    // la liste des projets en mode grille
     const renderProjetsGrid = (projets: Projet[]) => {
         return (
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {projets.map((projet) => {
-                    // Utiliser membres_details s'il existe, sinon utiliser membres
                     const membres = projet.membres_details || projet.membres || [];
                     
-                    // Déterminer la couleur de fond de la carte en fonction de l'état
+                    // la c'est la  couleur de fond de la carte en fonction de l'état
                     const getBgGradient = (etat: string) => {
                         switch(etat) {
                             case "EN_ATTENTE": return "from-amber-50 to-white";
@@ -355,7 +344,7 @@ const ProjetsList = () => {
         );
     };
 
-    // Rendre la liste des projets en mode liste
+    //  la liste des projets en mode liste
     const renderProjetsList = (projets: Projet[]) => {
         return (
             <div className="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
@@ -384,7 +373,6 @@ const ProjetsList = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                         {projets.map((projet) => {
-                            // Utiliser membres_details s'il existe, sinon utiliser membres
                             const membres = projet.membres_details || projet.membres || [];
                             
                             return (
@@ -440,7 +428,7 @@ const ProjetsList = () => {
         );
     };
 
-    // Rendre la section des projets avec titre
+    // la section des projets avec titre
     const renderProjetsSection = (projets: Projet[], titre: string, icon: React.ReactNode, totalPages: number, currentPage: number, onPageChange: (page: number) => void) => {
         if (projets.length === 0) {
             return (

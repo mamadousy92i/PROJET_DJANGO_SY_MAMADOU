@@ -4,7 +4,7 @@ import api from '../axiosConfig';
 import { User, Camera, Save, X, CheckCircle, AlertTriangle, Mail, UserCircle, ExternalLink, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Définir les types des données du profil
+//  les types des données du profil
 interface ProfileData {
     nom: string;
     prenom: string;
@@ -481,7 +481,6 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </motion.div>
 
-                        {/* Boutons */}
                         <motion.div 
                             className="flex justify-end space-x-3 pt-4"
                             variants={itemVariants}
@@ -498,7 +497,6 @@ const ProfilePage: React.FC = () => {
                                     <span>Annuler</span>
                                 </div>
                             </motion.button>
-
                             <motion.button
                                 type="submit"
                                 disabled={saving}

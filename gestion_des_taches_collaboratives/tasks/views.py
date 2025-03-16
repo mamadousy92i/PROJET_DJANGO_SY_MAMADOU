@@ -17,7 +17,7 @@ from .swagger import (
     tache_stats_by_project_swagger  # Nouveau décorateur pour les stats par projet
 )
 
-# ✅ Seuls les créateurs du projet peuvent ajouter une tâche
+#  Seuls les créateurs du projet peuvent ajouter une tâche
 class TacheListCreateView(generics.ListCreateAPIView):
     serializer_class = TacheSerializer
     permission_classes = [permissions.IsAuthenticated, EstProprietaireDuProjet]
@@ -45,15 +45,15 @@ class TacheListCreateView(generics.ListCreateAPIView):
         projet_id = self.request.data.get('projet')
         projet = Projet.objects.get(id=projet_id)
 
-        # ✅ Vérification du propriétaire du projet
+        #  Vérification du propriétaire du projet
         if projet.proprietaire != self.request.user:
             raise serializers.ValidationError("Vous n'êtes pas autorisé à ajouter une tâche à ce projet.")
 
-        # ✅ Enregistrer la tâche
+        #  Enregistrer la tâche
         serializer.save(projet=projet)
 
 
-# ✅ Seuls les créateurs ou l'assigné peuvent modifier ou supprimer la tâche
+#  Seuls les créateurs ou l'assigné peuvent modifier ou supprimer la tâche
 class TacheDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tache.objects.all()
     serializer_class = TacheSerializer
@@ -78,7 +78,7 @@ class TacheDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         instance = serializer.save()
 
-        # ✅ Itérer sur la liste d'utilisateurs
+        # Itérer sur la liste d'utilisateurs
         for user in instance.assigne_a.all():
             if user.role == "enseignant" and self.request.user.role == "etudiant":
                 raise serializers.ValidationError("Un étudiant ne peut pas assigner une tâche à un enseignant.")
@@ -147,7 +147,6 @@ class TacheStatsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, projet_id=None):
-        # Utiliser le décorateur approprié selon la présence ou non d'un projet_id
         if projet_id is not None:
             return self._get_stats_by_project_id(request, projet_id)
         else:
@@ -162,7 +161,7 @@ class TacheStatsView(APIView):
             else:
                 queryset = Tache.objects.all()
 
-            # Utiliser 'statut' à la fois pour le filtrage et les clés de réponse
+
             stats = {
                 'total': queryset.count(),
                 'a_faire': queryset.filter(statut='A_FAIRE').count(),

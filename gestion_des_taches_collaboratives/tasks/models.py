@@ -2,9 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-from django.db import models
 
-from projects.models import Projet
 
 
 from django.db import models
@@ -33,7 +31,6 @@ class Tache(models.Model):
 
 
     def save(self, *args, **kwargs):
-        """Applique la validation avant d’enregistrer."""
         self.clean()
         super().save(*args, **kwargs)
 

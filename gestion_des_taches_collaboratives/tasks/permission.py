@@ -4,16 +4,14 @@ from projects.models import Projet
 
 
 class EstProprietaireDuProjet(permissions.BasePermission):
-    """
-    Vérifie si l'utilisateur est le propriétaire du projet.
-    """
+
 
     def has_permission(self, request, view):
         # Pour les méthodes de lecture (GET, HEAD, OPTIONS), on autorise tous les utilisateurs authentifiés
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # 🔥 Récupérer le projet depuis la requête (POST, PUT, GET)
+        # Récupérer le projet depuis la requête (POST, PUT, GET)
         projet_id = request.data.get('projet') or view.kwargs.get('projet_id') or request.query_params.get('projet')
         if projet_id:
             try:
@@ -25,10 +23,6 @@ class EstProprietaireDuProjet(permissions.BasePermission):
 
 
 class EstProprietaireOuAssigne(permissions.BasePermission):
-    """
-    Autorise l'accès en lecture à tous les utilisateurs authentifiés.
-    Restreint la modification et suppression aux propriétaires du projet ou aux utilisateurs assignés.
-    """
 
     def has_object_permission(self, request, view, obj):
         # Permettre à tous les utilisateurs authentifiés de voir les tâches (GET, HEAD, OPTIONS)

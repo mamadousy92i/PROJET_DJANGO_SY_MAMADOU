@@ -24,9 +24,9 @@ interface Tache {
     id: number;
     titre: string;
     description: string;
-    statut: string; // Changé de 'etat' à 'statut'
+    statut: string; 
     date_limite?: string;
-    assigne_a?: any; // Peut être un objet ou un tableau
+    assigne_a?: any; 
     assigne_a_detail?: { id: number; username: string }[];
 }
 
@@ -51,7 +51,7 @@ const ProjetDetails = () => {
     const [utilisateurs, setUtilisateurs] = useState<{ id: number; username: string; role: string }[]>([]);
     const estProprietaire = projet?.proprietaire?.id === userId;
 
-    // Fonction améliorée pour vérifier si l'utilisateur est assigné à une tâche
+    // Fonction  vérifier si l'utilisateur est assigné à une tâche
     const estAssigne = (tache: Tache) => {
         if (Array.isArray(tache.assigne_a_detail)) {
             return tache.assigne_a_detail.some(user => user.id === userId);
@@ -78,7 +78,7 @@ const ProjetDetails = () => {
     const [newTask, setNewTask] = useState({
         titre: "",
         description: "",
-        statut: "A_FAIRE", // Changé de 'etat' à 'statut'
+        statut: "A_FAIRE",
         date_limite: "",
         assigne_a: [] as number[]
     });
@@ -153,7 +153,6 @@ const ProjetDetails = () => {
             });
     }, [id, userId]);
 
-    // Fonction pour traduire l'état du projet
     const getEtatLabel = (etat: string) => {
         switch (etat) {
             case "EN_ATTENTE": return "En attente";
@@ -163,7 +162,6 @@ const ProjetDetails = () => {
         }
     };
 
-    // Fonction pour obtenir la couleur en fonction de l'état
     const getEtatColor = (etat: string) => {
         switch (etat) {
             case "EN_ATTENTE": return "bg-amber-100 text-amber-800";
@@ -173,7 +171,6 @@ const ProjetDetails = () => {
         }
     };
 
-    // Fonction pour traduire l'état de la tâche
     const getTacheStatutLabel = (statut: string) => {
         switch (statut) {
             case "A_FAIRE": return "À faire";
@@ -183,7 +180,6 @@ const ProjetDetails = () => {
         }
     };
 
-    // Fonction pour obtenir la couleur en fonction de l'état de la tâche
     const getTacheStatutColor = (statut: string) => {
         switch (statut) {
             case "A_FAIRE": return "bg-gray-100 text-gray-800";
@@ -205,7 +201,6 @@ const ProjetDetails = () => {
             });
     };
 
-    // Gestion du changement des checkbox
     const handleCheckboxChange = (userId: number) => {
         setNewTask((prev) => {
             if (prev.assigne_a.includes(userId)) {
@@ -243,7 +238,7 @@ const ProjetDetails = () => {
                 .then(response => {
                     console.log("✅ Tâche modifiée :", response.data);
                     setTaches(taches.map(t => t.id === editingTaskId ? response.data : t));
-                    updateTaskStats(); // Mettre à jour les statistiques
+                    updateTaskStats(); 
                     resetTaskForm();
                 })
                 .catch(error => {
@@ -257,7 +252,7 @@ const ProjetDetails = () => {
                 .then(response => {
                     console.log("✅ Tâche ajoutée :", response.data);
                     setTaches([...taches, response.data]);
-                    updateTaskStats(); // Mettre à jour les statistiques
+                    updateTaskStats(); 
                     resetTaskForm();
                 })
                 .catch(error => {
@@ -275,7 +270,7 @@ const ProjetDetails = () => {
         setNewTask({
             titre: tache.titre,
             description: tache.description,
-            statut: tache.statut, // Changé de 'etat' à 'statut'
+            statut: tache.statut, 
             date_limite: tache.date_limite || "",
             assigne_a: tache.assigne_a_detail
                 ? tache.assigne_a_detail.map(user => user.id)
@@ -287,7 +282,6 @@ const ProjetDetails = () => {
         setShowAddTask(true);
     };
 
-    // Mettre à jour après le rendu grâce au `key`
     useEffect(() => {
         if (isEditing && newTask.assigne_a.length > 0) {
             setNewTask(prev => ({
@@ -302,7 +296,7 @@ const ProjetDetails = () => {
         setNewTask({
             titre: "",
             description: "",
-            statut: "A_FAIRE", // Changé de 'etat' à 'statut'
+            statut: "A_FAIRE",
             date_limite: "",
             assigne_a: []
         });
@@ -321,7 +315,7 @@ const ProjetDetails = () => {
             api.delete(`/taches/${idTache}/`)
                 .then(() => {
                     setTaches(taches.filter(t => t.id !== idTache));
-                    updateTaskStats(); // Mettre à jour les statistiques
+                    updateTaskStats(); 
                 })
                 .catch((error) => {
                     console.error("❌ Erreur lors de la suppression de la tâche :", error);
@@ -329,7 +323,7 @@ const ProjetDetails = () => {
         }
     };
 
-    // Calcul des statistiques locales (au cas où l'API ne fonctionne pas encore)
+    // ici vu que j'avait des probleme jai mis un Calcul des statistiques locales (au cas où l'API ne fonctionne pas encore)
     const statsProjet = {
         totalTasks: taches.length,
         tasksToDo: taches.filter(t => t.statut === "A_FAIRE").length,

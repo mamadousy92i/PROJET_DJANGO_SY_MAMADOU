@@ -10,7 +10,7 @@ import {
     X,
     LogOut,
     User,
-    Calendar // Ajoutez l'icône Calendar
+    Calendar 
 } from "lucide-react";
 
 const Navbar = () => {
@@ -72,7 +72,7 @@ const Navbar = () => {
                                     <span>Nouveau Projet</span>
                                 </Link>
 
-                                {/* Nouveau lien vers le calendrier */}
+                                {/* lien vers le calendrier */}
                                 <Link
                                     to="/calendrier"
                                     className={`flex items-center px-3 py-2 rounded-md text-sm font-medium 
@@ -166,7 +166,7 @@ const Navbar = () => {
                             <span>Nouveau Projet</span>
                         </Link>
 
-                        {/* Nouveau lien vers le calendrier pour mobile */}
+                        {/*  lien vers le calendrier pour mobile */}
                         <Link
                             to="/calendrier"
                             className={`flex items-center px-3 py-2 rounded-md text-sm font-medium 

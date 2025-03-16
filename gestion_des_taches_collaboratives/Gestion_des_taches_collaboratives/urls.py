@@ -16,7 +16,7 @@ schema_view = get_schema_view(
         default_version='v1',
         description="API pour la gestion des tâches collaboratives à l'ESMT",
         terms_of_service="https://www.esmt.sn/terms/",
-        contact=openapi.Contact(email="contact@esmt.sn"),
+        contact=openapi.Contact(email="92mamadousy@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -24,7 +24,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # URLs existantes
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('', include('projects.urls')),

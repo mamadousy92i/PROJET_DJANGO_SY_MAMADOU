@@ -33,7 +33,7 @@ class ProjetDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Permet de récupérer, modifier ou supprimer un projet"""
     queryset = Projet.objects.all()
     serializer_class = ProjetSerializer
-    permission_classes = [IsAuthenticated, EstProprietaireOuLectureSeule]  # ✅ Protection par permission
+    permission_classes = [IsAuthenticated, EstProprietaireOuLectureSeule]  # Protection par permission
 
     @projet_detail_swagger
     def get(self, request, *args, **kwargs):

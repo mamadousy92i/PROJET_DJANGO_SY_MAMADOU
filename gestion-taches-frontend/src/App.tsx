@@ -8,7 +8,7 @@ import ProjetsList from "./pagesProjets/ProjetsList";
 import ProjetForm from "./pagesProjets/ProjetForm";
 import ProjetDetails from "./pagesProjets/ProjetDetails";
 import Statistiques from "./pagePrincipal/Statistiques";
-import ProfilePage from "../src/pagePrincipal/ProfilePage"; // Importez la nouvelle page de profil
+import ProfilePage from "../src/pagePrincipal/ProfilePage"; 
 import Layout from "./pagePrincipal/Layout";
 import HomePage from "./pagePrincipal/HomePage";
 import Calendrier from "./pagePrincipal/Calendrier";

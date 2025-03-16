@@ -1,19 +1,17 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Assurez-vous d'avoir cette bibliothèque installée
+import { jwtDecode } from "jwt-decode";
 
 // Interface pour représenter un utilisateur
 interface User {
     id: number;
     username: string;
     role?: string;
-    // Ajoutez d'autres propriétés au besoin
 }
 
-// Interface AuthContextType mise à jour
 interface AuthContextType {
     isAuthenticated: boolean;
-    user: User | null; // Ajout de la propriété user
+    user: User | null; 
     logout: () => void;
 }
 

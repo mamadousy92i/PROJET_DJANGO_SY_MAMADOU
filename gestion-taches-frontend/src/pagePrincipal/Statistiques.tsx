@@ -119,7 +119,7 @@ const Statistiques: React.FC = () => {
     rôle: user.role
   }));
 
-  // Statistiques globales (sans les admins, déjà filtrés en amont)
+  // Statistiques globales (sans les admins)
   const globalStats = {
     totalUsers: users.length,
     totalTasks: users.reduce((acc, user) => acc + user.taches_totales, 0),
@@ -360,7 +360,7 @@ const Statistiques: React.FC = () => {
                   <div className="h-96">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
-                        data={efficiencyData.slice(0, 10)} // Limiter aux 10 premiers pour la lisibilité
+                        data={efficiencyData.slice(0, 10)} 
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" />
@@ -381,7 +381,7 @@ const Statistiques: React.FC = () => {
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
-                        data={filteredUsers.slice(0, 10)} // Limiter aux 10 premiers pour la lisibilité
+                        data={filteredUsers.slice(0, 10)} 
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" />

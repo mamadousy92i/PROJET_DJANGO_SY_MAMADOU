@@ -75,8 +75,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'users', 'templates', 'users'),
-            os.path.join(BASE_DIR, 'projects', 'templates', 'projects'),  # ✅ Correct
-            os.path.join(BASE_DIR, 'tasks', 'templates', 'tasks'),  # ✅ Correct
+            os.path.join(BASE_DIR, 'projects', 'templates', 'projects'),
+            os.path.join(BASE_DIR, 'tasks', 'templates', 'tasks'),
 
         ],
         'APP_DIRS': True,
@@ -142,20 +142,20 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Authentification classique Django
-    'allauth.account.auth_backends.AuthenticationBackend',  # Ajoute la gestion par allauth
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # Configuration pour django-allauth
 ACCOUNT_LOGIN_METHODS = {"username"}
   # Authentification par username
-ACCOUNT_EMAIL_REQUIRED = True  # L'email est obligatoire pour l'inscription
-ACCOUNT_USERNAME_REQUIRED = True  # On garde le username
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  # On ne force pas la vérification email
-ACCOUNT_SIGNUP_REDIRECT_URL = 'home' # Redirige après inscription
-ACCOUNT_LOGOUT_REDIRECT_URL = '/users/login/'  # Redirige après déconnexion
-LOGIN_REDIRECT_URL = 'home'  # Redirige après connexion
-LOGIN_URL = '/users/login/'  # URL de la page de connexion
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/users/login/'
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = '/users/login/'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Internationalization
@@ -184,7 +184,7 @@ STATICFILES_DIRS = [
 ]
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # 📌 Ajout de cette ligne
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 

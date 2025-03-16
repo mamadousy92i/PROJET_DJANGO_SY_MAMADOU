@@ -7,7 +7,7 @@ import { Loader, Info, Calendar as CalendarIcon, Filter, RefreshCw, ChevronLeft,
 import { Link } from 'react-router-dom';
 import api, { getUserId } from '../axiosConfig';
 
-// Configurer moment pour le français
+// Configurer moment pour français
 moment.locale('fr');
 const localizer = momentLocalizer(moment);
 
@@ -52,7 +52,6 @@ const Calendrier: React.FC = () => {
         // 1. Récupérer tous les projets
         api.get('/projets/')
             .then((projetResponse: { data: { id: string | number; nom: any; description: any; }[]; }) => {
-                // Créer un dictionnaire avec ID du projet comme clé
                 const projetsMap: { [key: number]: { id: number; nom: string; description: string } } = {};
                 projetResponse.data.forEach((projet: { id: string | number; nom: any; description: any; }) => {
                     projetsMap[Number(projet.id)] = {

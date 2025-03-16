@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../etatConnexion/AuthContext"; // Ajustez le chemin d'importation selon votre structure
+import { AuthContext } from "../etatConnexion/AuthContext"; 
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
